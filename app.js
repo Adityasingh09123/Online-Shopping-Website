@@ -14,10 +14,10 @@ const helmet = require("helmet");
 const compression = require("compression");
 const morgan = require("morgan");
 
-const errorController = require("../controllers/error");
-const shopController = require("../controllers/shop");
-const isAuth = require("../middleware/is-auth");
-const User = require("../models/user");
+const errorController = require("./controllers/error");
+const shopController = require("./controllers/shop");
+const isAuth = require("./middleware/is-auth");
+const User = require("./models/user");
 
 const db = `mongodb+srv://adisingh:fQxFChqX7vh09aJO@cluster0.gity9qf.mongodb.net/shop`;
 
@@ -60,9 +60,9 @@ const fileFilter = (req, file, cb) => {
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-const adminRoutes = require("../routes/admin");
-const shopRoutes = require("../routes/shop");
-const authRoutes = require("../routes/auth");
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+const authRoutes = require("./routes/auth");
 
 // const accessLogStream = fs.createWriteStream(
 //   path.join(__dirname, "access.log"),
