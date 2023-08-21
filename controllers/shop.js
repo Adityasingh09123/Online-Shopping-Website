@@ -4,8 +4,8 @@ const fs = require("fs");
 const path = require("path");
 const PDFDocument = require("pdfkit");
 require('dotenv').config();
-// const stripe = require('stripe')(process.env.STRIPE_KEY);
-const stripe = require('stripe')('sk_test_51NfbaPSCjSXSBXZU3ZScAWjSiBnyuaxJf8b5op8gCJQp0ODEbquS3xHzFvv03G2fndPuPJdpKwld6krdfytm7TsX00i893coqq');
+const stripe = require('stripe')(process.env.STRIPE_KEY);
+// const stripe = require('stripe')('sk_test_51NfbaPSCjSXSBXZU3ZScAWjSiBnyuaxJf8b5op8gCJQp0ODEbquS3xHzFvv03G2fndPuPJdpKwld6krdfytm7TsX00i893coqq');
 
 
 const ITEMS_PER_PAGE = 2;

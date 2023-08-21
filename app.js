@@ -13,15 +13,17 @@ const multer = require("multer");
 const helmet = require("helmet");
 const compression = require("compression");
 const morgan = require("morgan");
+require('dotenv').config();
 
 const errorController = require("./controllers/error");
 const shopController = require("./controllers/shop");
 const isAuth = require("./middleware/is-auth");
 const User = require("./models/user");
 
-const db = `mongodb+srv://adisingh:fQxFChqX7vh09aJO@cluster0.gity9qf.mongodb.net/shop`;
+const db = 
+// `mongodb+srv://adisingh:fQxFChqX7vh09aJO@cluster0.gity9qf.mongodb.net/shop`;
 
-// `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.gity9qf.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
+`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.gity9qf.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -69,8 +71,8 @@ const authRoutes = require("./routes/auth");
 //   { flags: "a" }
 // );
 
-// app.use(helmet());
-// app.use(compression());
+app.use(helmet());
+app.use(compression());
 // app.use(morgan("combined", { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
