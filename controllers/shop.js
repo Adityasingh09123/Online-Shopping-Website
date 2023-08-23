@@ -5,10 +5,8 @@ const path = require("path");
 const PDFDocument = require("pdfkit");
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_KEY);
-// const stripe = require('stripe')('sk_test_51NfbaPSCjSXSBXZU3ZScAWjSiBnyuaxJf8b5op8gCJQp0ODEbquS3xHzFvv03G2fndPuPJdpKwld6krdfytm7TsX00i893coqq');
 
-
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 4;
 
 exports.getProducts = (req, res, next) => {
   const page = +req.query.page || 1;
@@ -90,17 +88,17 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
+  // console.log(cart.items.productId);
   req.user
     .populate("cart.items.productId")
     // .execPopulate()
-    // do not execute this line because it gives error
     .then((user) => {
       const products = user.cart.items;
       console.log(products);
       res.render("shop/cart", {
         path: "/cart",
         pageTitle: "Your Cart",
-        products: products,
+        products: products
       });
       // console.log("Get cart " + user);
     })
@@ -114,12 +112,13 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
+  // console.log(prodId);
   Product.findById(prodId)
     .then((product) => {
       return req.user.addToCart(product);
     })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.redirect("/cart");
     })
     .catch((err) => {
@@ -132,10 +131,11 @@ exports.postCart = (req, res, next) => {
 
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
+  console.log(prodId);
   req.user
     .removeFromCart(prodId)
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.redirect("/cart");
     })
     .catch((err) => {
