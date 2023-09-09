@@ -4,9 +4,9 @@ const fs = require("fs");
 const path = require("path");
 const PDFDocument = require("pdfkit");
 require('dotenv').config();
-const stripe = require('stripe')(process.env.STRIPE_KEY);
+// const stripe = require('stripe')(process.env.STRIPE_KEY);
 
-const ITEMS_PER_PAGE = 4;
+const ITEMS_PER_PAGE = 8;
 
 exports.getProducts = (req, res, next) => {
   const page = +req.query.page || 1;
@@ -145,29 +145,29 @@ exports.postCartDeleteProduct = (req, res, next) => {
     });
 };
 
-exports.getCheckout = (req, res, next) => {
-  req.user
-    .populate('cart.items.productId')
-    // .execPopulate()
-    .then(user => {
-      const products = user.cart.items;
-      let total = 0;
-      products.forEach(p => {
-        total += p.quantity * p.productId.price;
-      });
-      res.render('shop/checkout', {
-        path: '/checkout',
-        pageTitle: 'Checkout',
-        products: products,
-        totalSum: total
-      });
-    })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      return next(error);
-    });
-};
+// exports.getCheckout = (req, res, next) => {
+//   req.user
+//     .populate('cart.items.productId')
+//     // .execPopulate()
+//     .then(user => {
+//       const products = user.cart.items;
+//       let total = 0;
+//       products.forEach(p => {
+//         total += p.quantity * p.productId.price;
+//       });
+//       res.render('shop/checkout', {
+//         path: '/checkout',
+//         pageTitle: 'Checkout',
+//         products: products,
+//         totalSum: total
+//       });
+//     })
+//     .catch(err => {
+//       const error = new Error(err);
+//       error.httpStatusCode = 500;
+//       return next(error);
+//     });
+// };
 
 exports.postOrder = (req, res, next) => {
   const token = req.body.stripeToken; // Using Express
@@ -195,13 +195,13 @@ exports.postOrder = (req, res, next) => {
       return order.save();
     })
     .then((result) => {
-      const charge = stripe.charges.create({
-        amount: totalSum * 100,
-        currency: 'usd',
-        description: 'Demo Order',
-        source: token,
-        metadata: { order_id: result._id.toString() }
-      });
+      // const charge = stripe.charges.create({
+      //   amount: totalSum * 100,
+      //   currency: 'inr',
+      //   description: 'Demo Order',
+      //   source: token,
+      //   metadata: { order_id: result._id.toString() }
+      // });
       return req.user.clearCart();
     })
     .then(() => {
@@ -268,12 +268,12 @@ exports.getInvoice = (req, res, next) => {
               " - " +
               prod.quantity +
               " x " +
-              "$" +
+              "Rs " +
               prod.product.price
           );
       });
       pdfDoc.text("---");
-      pdfDoc.fontSize(20).text("Total Price: $" + totalPrice);
+      pdfDoc.fontSize(20).text("Total Price: Rs " + totalPrice);
 
       pdfDoc.end();
       // fs.readFile(invoicePath, (err, data) => {

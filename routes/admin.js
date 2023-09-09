@@ -12,7 +12,7 @@ const router = express.Router();
 // router.get('/add-product',isAuth,adminController.getAddProduct);
 
 // /admin/add-product => GET
-router.get('/add-product', isAuth,adminController.getAddProduct);
+router.get('/add-product',isAuth,adminController.getAddProduct);
 
 // /admin/products => GET
 router.get('/products',isAuth, adminController.getProducts);
@@ -48,6 +48,8 @@ router.post('/edit-product',
     ],
     isAuth, adminController.postEditProduct);
 
-router.delete('/product/:productId',isAuth, adminController.deleteProduct);
+// router.delete('/product/:productId',isAuth, adminController.deleteProduct);
+
+router.post('/delete-product', isAuth, adminController.postDeleteProduct);
 
 module.exports = router;

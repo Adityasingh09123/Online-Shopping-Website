@@ -2,7 +2,19 @@
     <link rel="stylesheet" href="/css/forms.css">
     <link rel="stylesheet" href="/css/auth.css">
 </head>
-
+    <style>
+        form{
+            background:rgba(0, 0, 0, 0.808);
+            color:white;
+            border-radius: 5px;
+            padding: 12px;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 5px 20px 50px #9b9999;
+        }
+        form h3{
+            text-align: center;
+        }
+    </style>
 <body>
    <%- include('../includes/navigation.ejs') %>
 
@@ -11,6 +23,7 @@
         <div class="user-message user-message--error"> <%= errorMessage %></div>
         <% } %>
         <form class="login-form" action="/login" method="POST">
+            <h3>Login Form</h3>
             <div class="form-control">
                 <label for="email">E-mail</label>
                 <input 
@@ -31,9 +44,9 @@
             </div>
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit">Login</button>
+            <div class="centered">
+                <a href="/reset" style="color: white;">Reset Password</a>
+            </div>
         </form>
-        <div class="centered">
-            <a href="/reset">Reset Password</a>
-        </div>
     </main>
 <%- include('../includes/end.ejs') %>
