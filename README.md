@@ -1,5 +1,5 @@
 # Online-Shopping-Website
-### This is a sample application that demonstrates an E-commerce website using the MEAN stack. The application loads products a MongoDB database and displays them. Users can select to display products in a single category. Users can click on any product to get more information including pricing, reviews and rating. Users can select items and add them to their shopping cart
+### This is a sample application that demonstrates an E-commerce website using the nodejs,express,mongodb and ejs template engine. The application loads products a MongoDB database and displays them. Users can select to display products in a single category. Users can click on any product to get more information including pricing, reviews and rating. Users can select items and add them to their shopping cart
 Demo - https://upset-trousers-ant.cyclic.cloud/
 ## Home Page 
 ![Home](https://github.com/Adityasingh09123/Online-Shopping-Website/assets/103110193/fcd0f5bb-c786-4038-84e0-32c2699fee24)
